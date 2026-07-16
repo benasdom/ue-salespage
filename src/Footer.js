@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaPinterest,   FaYoutube } from 'react-icons/f
 
 export const Footer = () => {
   return <div className='footer'>
- <div className='ue'><img id='footimg' src='imgs/uepage.png'/></div>
+ <div className='ue'><img alt="pic" id='footimg' src='imgs/uepage.png'/></div>
  <div className="tab">
      <div className='footflex'>
          <div className="topped">Useful links</div>
@@ -43,10 +43,10 @@ export const Footer = () => {
 
  <div className='social'>
 
-    <a target='_blank' href='Instagram.com' className='gram'> <FaInstagram/></a>
-    <a target='_blank' href='facebook.com' className='gram'> <FaFacebook/></a>
-    <a target='_blank' href='Pinterest.com' className='gram'>  <FaPinterest/></a>
-    <a target='_blank' href='Youtube.com' className='gram'>     <FaYoutube/></a>
+    <a target='_blank' rel='noopener noreferrer' href='https://Instagram.com' className='gram'> <FaInstagram/></a>
+    <a target='_blank' rel='noopener noreferrer' href='https://facebook.com' className='gram'> <FaFacebook/></a>
+    <a target='_blank' rel='noopener noreferrer' href='https://Pinterest.com' className='gram'>  <FaPinterest/></a>
+    <a target='_blank' rel='noopener noreferrer' href='https://Youtube.com' className='gram'>     <FaYoutube/></a>
  </div>
 
  <div className='powered'>Powered by <span id='ue'>UnityElites</span></div>

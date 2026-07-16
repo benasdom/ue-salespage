@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import  {AiOutlineShoppingCart,AiOutlineSearch, AiFillQuestionCircle} from'react-icons/ai';
 
 export const Home = () => {
@@ -7,7 +6,7 @@ export const Home = () => {
   
   <div className="homepage">
  
-    <img className='baglogo' src="imgs/baglogo.png" />
+    <img className='baglogo' alt="pic" src="imgs/baglogo.png" />
   
   <input type="text"  className="en" placeholder='catalogue' list="categories"/>
     <datalist id="categories">

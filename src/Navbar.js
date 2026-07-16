@@ -4,7 +4,6 @@ import  {FaBars,  FaSignOutAlt} from'react-icons/fa';
 import { useState,useEffect } from 'react';
 export const Navbar = () => {
 
-  const [ranges, setranges] = useState("");
   const [cursorY, setcursorY] = useState("");
   const [alfa, setalfa] = useState("");
   const [gadgets, setgadgets] = useState([{
@@ -42,8 +41,7 @@ export const Navbar = () => {
   
 
 function rangeset(vals){
-// setranges(ranges.value=vals)
-  setranges(document.querySelector("#emp").innerText=vals + "%" +"");
+  document.querySelector("#emp").innerText = vals + "%";
 
   setalfa(1);
   document.onmouseup=()=>{
@@ -63,7 +61,7 @@ function rangeset(vals){
  const showmenu=()=>{
 
   const menu=document.querySelector(".lilnav")
-   if(menu.style.display=="none"){
+   if(menu.style.display==="none"){
     menu.style.cssText="display:flex";
 
    }
@@ -72,7 +70,6 @@ function rangeset(vals){
 
    }
  }
- const [iaddto, setiaddto] = useState("Added to cart");
 
   return <div>
     <div id="popup"><div className='logsbox'><div>Wish to Logout?</div><div className='outicon'><AiOutlineLogout style={{color:"dodgerblue"}}/></div><div className='flexlog'><div id="logouthere">Yes</div>
@@ -84,7 +81,7 @@ function rangeset(vals){
     </div>
     <div className='lilnav'>
     <div id="piccontent" >
-      <img title="users-image"  id='picid'src='imgs/profile.png' loading='lazy'/>
+      <img alt="image" title="users-image"  id='picid'src='imgs/profile.png' loading='lazy'/>
     </div>
     <div id="content"  title="user"  >User</div>
       <div className='menu'>
@@ -116,7 +113,7 @@ function rangeset(vals){
       }}>0%</div>
      </div>
      <div className='centerwrap' title='product feature'>
-       <img id="headset" src="imgs/headset.png" />
+       <img alt="image" id="headset" src="imgs/headset.png" />
        </div>
      <fieldset>
        <div className='itemcolor' title='color variation feature'>
@@ -145,16 +142,16 @@ function rangeset(vals){
      {/* sideoptions */}
      <div className='sidewrap'>
 
-         <a id='sideone' className='sidecontent'>
+         <button id='sideone' className='sidecontent'>
          <div className='sideinfo'>
          <p className='gadgets'>Quality gadgets</p>
            <h2 className='details'>Get your amazing devices here !</h2></div>
-         <img src="https://www.bimmertimes.com/wp-content/uploads/2012/12/BMW-i8-Concept-Roadster-LA-AUTOSHOW-2012-BIMMERTIMES-53-1024x678.jpg"/></a>
-         <a id='sideone' className='sidecontent'>
+         <img alt="image" src="https://www.bimmertimes.com/wp-content/uploads/2012/12/BMW-i8-Concept-Roadster-LA-AUTOSHOW-2012-BIMMERTIMES-53-1024x678.jpg"/></button>
+         <button id='sideone' className='sidecontent'>
          <div className='sideinfo'>
          <p className='gadgets'>Dont miss out</p>
            <h2 className='details'>We have the best prices !</h2></div>
-         <img src="https://www.tuvie.com/wp-content/uploads/autonomous-passenger-drone-by-robert-kovacs2.jpg"/></a>
+         <img alt="image" src="https://www.tuvie.com/wp-content/uploads/autonomous-passenger-drone-by-robert-kovacs2.jpg"/></button>
      </div>
      {/* sideoptions */}
 
@@ -166,36 +163,36 @@ function rangeset(vals){
 <div className='noteb'>
   <h1 className='servic' data-text="Do you like our services?">Do you like our services?</h1></div>
 <div className='noteb'><p id="doyou" data-text="We give users the ability to buy and sell on our system" >We give users the ability to buy and sell on our system</p></div>
-<div className='notebb'><a href='#' className='buy'>buy</a><a href='#' className='sell'>sell</a></div>
+<div className='notebb'><button className='buy'>buy</button><button className='sell'>sell</button></div>
 </div>
 </div>
 {/* box */}
 <div className='uepics'>
 
-<img src="imgs/ueo.png"/>
-<img  src="imgs/ueb.png"/>
+<img alt="image" src="imgs/ueo.png"/>
+<img alt="image"  src="imgs/ueb.png"/>
 
 </div>
 {/* box */}
 
 <div className='boxeshere'>
   <div className='boxersa'>
-<div className='onea'><img id='carda' src='imgs/cardb.png'/></div> <p className='par'>Elite-commerce allows you to buy and sell
+<div className='onea'><img alt="image" id='carda' src='imgs/cardb.png'/></div> <p className='par'>Elite-commerce allows you to buy and sell
   your products on their system. To get started you have to sign-up with your G-mail account. From there you are good to go</p>
 </div>
 
 
   <div className='boxersa'>
-  <div className='oneb'><img id='carda' src='imgs/carda.png'/></div> <p className='par'>Do you wish to buy the best gadgets and cosmetics... Look no further we got you covered. All you need to do is go to our gadgets catalogue</p>
+  <div className='oneb'><img alt="image" id='carda' src='imgs/carda.png'/></div> <p className='par'>Do you wish to buy the best gadgets and cosmetics... Look no further we got you covered. All you need to do is go to our gadgets catalogue</p>
 
 
   </div>
 <div className='boxersa'>
-<div className='onec'><img id='carda' src='imgs/shop.png'/></div> <p className='par'>Wish to live in your dream house?... If you are looking for a house to buy you can get that from our real estate catalogue</p>
+<div className='onec'><img alt="image" id='carda' src='imgs/shop.png'/></div> <p className='par'>Wish to live in your dream house?... If you are looking for a house to buy you can get that from our real estate catalogue</p>
 
 </div>
 <div className='boxersa'>
-<div className='oned'><img id='carda' src='imgs/car.png'/></div> <p className='par'>We also have a catalogue for rides... wish to test our wheels, you can buy them from our cars catalogue</p>
+<div className='oned'><img alt="image" id='carda' src='imgs/car.png'/></div> <p className='par'>We also have a catalogue for rides... wish to test our wheels, you can buy them from our cars catalogue</p>
 
 </div>
 
@@ -206,7 +203,7 @@ function rangeset(vals){
 <div className='slidea'>
   <div className='aslider' >
 <div className='aslida' id="afirst">
-<div className='picimage'><div className='picleft'><h1>The most amazing gadgets</h1><h3>Lets get you some modern trends</h3></div><div className='picright'><img src='imgs/drone.png'/></div></div>
+<div className='picimage'><div className='picleft'><h1>The most amazing gadgets</h1><h3>Lets get you some modern trends</h3></div><div className='picright'><img alt="image" src='imgs/drone.png'/></div></div>
 </div>
 <div className='aslida' id="bfirst">
 <div className='picimage'><div className='picleft'><h1>You deserve the best</h1><h3>Dont wait any longer</h3></div><div className='picright'><img alt='bot' src='imgs/rob.png'/></div></div>
@@ -215,7 +212,7 @@ function rangeset(vals){
 <div className='picimage'><div className='picleft'><h1>This is awesome!</h1><h3>Are you ready ...</h3></div><div className='picright'><img alt='cosmetics' src='imgs/cosmetics.png'/></div></div>
 </div>
 <div className='aslida' id="dfirst">
-<div className='picimage'><div className='picleft'><h1>Made a choice yet?</h1><h3>Let's crack it open</h3></div><div className='picright'><img src='imgs/headset.png'/></div></div>
+<div className='picimage'><div className='picleft'><h1>Made a choice yet?</h1><h3>Let's crack it open</h3></div><div className='picright'><img alt="image" src='imgs/headset.png'/></div></div>
 </div>
 
 
@@ -239,7 +236,7 @@ function rangeset(vals){
                 <div className='topaddto'>
                   <div className='showadded'><div className="show1"><AiOutlineStar/></div><div className="show2"><AiOutlineStar/></div></div>
                 </div>
-                  <img width="100%"  src={a.thumbnail}/>
+                  <img alt="image" width="100%"  src={a.thumbnail}/>
                   <div className='iaddto' >
                   <span id='iaddto'>Add to cart</span>  
                     <AiOutlineShoppingCart/></div>
@@ -267,7 +264,7 @@ function rangeset(vals){
                 <div className='topaddto'>
                   <div className='showadded'><div className="show1"><AiOutlineStar/></div><div className="show2"><AiOutlineStar/></div></div>
                 </div>
-                  <img width="100%"  src={a.thumbnail}/>
+                  <img alt="image" width="100%"  src={a.thumbnail}/>
                   <div className='iaddto' >
                   <span id='iaddto'>Add to cart</span>  
                     <AiOutlineShoppingCart/></div>
