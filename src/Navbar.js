@@ -1,6 +1,6 @@
 import React from 'react';
-import { AiFillEnvironment,AiOutlineStar,AiOutlineShoppingCart, AiOutlineBars, AiOutlineLogout } from "react-icons/ai";
-import  {FaBars, FaSearch, FaSignOutAlt, FaStar} from'react-icons/fa';
+import { AiFillEnvironment,AiOutlineStar,AiOutlineShoppingCart,  AiOutlineLogout } from "react-icons/ai";
+import  {FaBars,  FaSignOutAlt} from'react-icons/fa';
 import { useState,useEffect } from 'react';
 export const Navbar = () => {
 

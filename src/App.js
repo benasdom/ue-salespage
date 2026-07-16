@@ -1,5 +1,4 @@
 
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import { Home } from './Home';
@@ -13,7 +12,7 @@ function App() {
   return (
     <div className="App">
          <div className="loader">
-    <div className="holdload"><img src="imgs/baglogo.png" className="loading"/>
+    <div className="holdload"><img src="imgs/baglogo.png" alt="loading..." className="loading"/>
         <div className="loadtext">awaiting...</div>
     </div>
 </div>

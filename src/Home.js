@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import  {AiOutlineMore,AiOutlineShoppingCart,AiOutlineDown,AiFillStar,AiOutlineSearch, AiFillQuestionCircle} from'react-icons/ai';
-
+import  {AiOutlineShoppingCart,AiOutlineSearch, AiFillQuestionCircle} from'react-icons/ai';
 
 export const Home = () => {
   

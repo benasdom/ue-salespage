@@ -1,6 +1,6 @@
 import React from 'react';
-import  {AiOutlineMore,AiOutlineShoppingCart,AiOutlineDown,AiFillStar,AiOutlineSearch, AiOutlineRedEnvelope, AiFillRedEnvelope, AiOutlineMail} from'react-icons/ai';
-import { FaFacebook, FaInstagram, FaPinterest, FaSearch, FaTwitch, FaYoutube } from 'react-icons/fa';
+import  { AiOutlineMail} from'react-icons/ai';
+import { FaFacebook, FaInstagram, FaPinterest,   FaYoutube } from 'react-icons/fa';
 
 export const Footer = () => {
   return <div className='footer'>
