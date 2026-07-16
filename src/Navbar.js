@@ -1,8 +1,13 @@
 import React from 'react';
 import { AiFillEnvironment,AiOutlineStar,AiOutlineShoppingCart,  AiOutlineLogout } from "react-icons/ai";
 import  {FaBars,  FaSignOutAlt} from'react-icons/fa';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef } from 'react';
+
+// TODO: replace with your real OAuth Client ID from Google Cloud Console
+const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+
 export const Navbar = () => {
+  const googleBtnRef = useRef(null);
 
   const [cursorY, setcursorY] = useState("");
   const [alfa, setalfa] = useState("");
