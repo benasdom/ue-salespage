@@ -19,9 +19,9 @@ export const Home = () => {
 
     </datalist>
    
-      <div className="search">
+      <div className="search" onClick={openSearch}>
       <input  className='sbox' type="text" placeholder='search ...'/>
-      <button type="button" className='sbar' title="search" onClick={openSearch}><AiOutlineSearch/></button>
+      <button type="button" className='sbar' title="search" ><AiOutlineSearch/></button>
       </div>
       <div className="cart">
         <div title='Help'><AiFillQuestionCircle/></div>

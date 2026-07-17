@@ -217,6 +217,10 @@ a{
   transition: all .2 ease-in-out;
   box-shadow: inset 300px 0px 0px rgb(0, 0, 0);
 }
+button{
+  outline:none;
+  border:1px solid transparent;
+}
 .sell:hover{
   transition: all .2 ease-in-out;
   box-shadow: inset -300px 0px 0px black;

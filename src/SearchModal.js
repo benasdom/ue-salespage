@@ -124,6 +124,7 @@ export const SearchModal = () => {
                 color: activeCategory === cat ? '#fff' : '#333',
                 cursor: 'pointer',
                 fontSize: 13,
+                fontWeight:900,
                 textTransform: 'capitalize',
               }}
             >
@@ -134,7 +135,7 @@ export const SearchModal = () => {
 
         <ul style={{ listStyle: 'none', margin: 0, padding: '0 12px 16px', overflowY: 'auto' }}>
           {filteredItems.length === 0 && (
-            <li style={{ padding: '24px 8px', textAlign: 'center', color: '#888' }}>
+            <li style={{ padding: '24px 8px', textAlign: 'center', color: '#888',fontWeight:900 }}>
               No items match your search.
             </li>
           )}
@@ -152,6 +153,7 @@ export const SearchModal = () => {
                   border: 'none',
                   background: 'transparent',
                   textAlign: 'left',
+                fontWeight:900,
                   cursor: 'pointer',
                   borderRadius: 8,
                 }}
@@ -162,7 +164,7 @@ export const SearchModal = () => {
                   onError={(e) => { e.target.src = 'imgs/profile.png'; }}
                   style={{ width: 44, height: 44, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }}
                 />
-                <span style={{ flex: 1, fontSize: 14, fontWeight: 500 }}>
+                <span style={{ flex: 1, fontSize: 14,color:"#555" }}>
                   {(item.title || 'Untitled item').slice(0, 60)}
                 </span>
                 <span style={{ fontSize: 13, color: '#555', fontWeight: 600, whiteSpace: 'nowrap' }}>
