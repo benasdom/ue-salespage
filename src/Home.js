@@ -1,7 +1,9 @@
 import  {AiOutlineShoppingCart,AiOutlineSearch, AiFillQuestionCircle} from'react-icons/ai';
+import { useSearch } from './SearchContext';
 
 export const Home = () => {
-  
+  const { openSearch } = useSearch();
+
   return (
   
   <div className="homepage">
@@ -19,7 +21,7 @@ export const Home = () => {
    
       <div className="search">
       <input  className='sbox' type="text" placeholder='search ...'/>
-      <div className='sbar' title="search"><AiOutlineSearch/></div>
+      <button type="button" className='sbar' title="search" onClick={openSearch}><AiOutlineSearch/></button>
       </div>
       <div className="cart">
         <div title='Help'><AiFillQuestionCircle/></div>

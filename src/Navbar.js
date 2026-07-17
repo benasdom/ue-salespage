@@ -2,12 +2,15 @@ import React from 'react';
 import { AiFillEnvironment,AiOutlineStar,AiOutlineShoppingCart,  AiOutlineLogout } from "react-icons/ai";
 import  {FaBars,  FaSignOutAlt} from'react-icons/fa';
 import { useState,useEffect,useRef,useCallback } from 'react';
+import { useSearch } from './SearchContext';
+import { SearchModal } from './SearchModal';
 
 // Google Cloud Console OAuth Client ID (Web application)
 const GOOGLE_CLIENT_ID = "49165624970-35najh58masjjonbbp944ha3vi2su79l.apps.googleusercontent.com";
 
 export const Navbar = () => {
   const googleBtnRef = useRef(null);
+  const { openSearch, setItems } = useSearch();
 
   // Signed-in user (null when signed out). Populated from the decoded Google ID token.
   const [user, setUser] = useState(null);
@@ -46,6 +49,17 @@ export const Navbar = () => {
 
     
   },[])
+
+  // Feed the fetched catalogue into the shared search context whenever it
+  // changes, tagging each item with its category and dropping the empty
+  // placeholder objects the initial useState values start with.
+  useEffect(() => {
+    const combined = [
+      ...gadgets.filter((g) => g.title).map((g) => ({ ...g, category: 'gadgets' })),
+      ...cosmetics.filter((c) => c.title).map((c) => ({ ...c, category: 'cosmetics' })),
+    ];
+    setItems(combined);
+  }, [gadgets, cosmetics, setItems]);
 
   // Decode the JWT credential Google returns. Payload only — we never verify
   // the signature client-side; that must happen server-side if you send this
@@ -186,6 +200,7 @@ function rangeset(vals){
  }
 
   return <div>
+    <SearchModal />
     <div
       id="popup"
       role="dialog"
@@ -308,7 +323,7 @@ function rangeset(vals){
 <div className='noteb'>
   <h1 className='servic' data-text="Do you like our services?">Do you like our services?</h1></div>
 <div className='noteb'><p id="doyou" data-text="We give users the ability to buy and sell on our system" >We give users the ability to buy and sell on our system</p></div>
-<div className='notebb'><button className='buy'>buy</button><button className='sell'>sell</button></div>
+<div className='notebb'><button className='buy' onClick={openSearch}>buy</button><button className='sell'>sell</button></div>
 </div>
 </div>
 {/* box */}
