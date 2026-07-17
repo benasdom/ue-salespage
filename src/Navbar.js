@@ -136,6 +136,20 @@ export const Navbar = () => {
     setShowLogoutPopup(false);
   };
 
+  // Close the dialog on Escape, and keep it out of the tab order while hidden.
+  useEffect(() => {
+    if(!showLogoutPopup){
+      return;
+    }
+    const onKeyDown = (e) => {
+      if(e.key === 'Escape'){
+        closeLogoutPopup();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [showLogoutPopup]);
+
 
 
   
@@ -172,10 +186,29 @@ function rangeset(vals){
  }
 
   return <div>
-    {showLogoutPopup && (
-    <div id="popup" style={{display:"flex"}}><div className='logsbox'><div>Wish to Logout?</div><div className='outicon'><AiOutlineLogout style={{color:"dodgerblue"}}/></div><div className='flexlog'><div id="logouthere" onClick={handleSignOut}>Yes</div>
-    <div id="dontlogout" onClick={closeLogoutPopup}>No</div></div></div></div>
-    )}
+    <div
+      id="popup"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!showLogoutPopup}
+      aria-label="Confirm sign out"
+      style={{
+        display: "flex",
+        opacity: showLogoutPopup ? 1 : 0,
+        pointerEvents: showLogoutPopup ? "auto" : "none",
+        zIndex: showLogoutPopup ? 9999 : -1,
+        transition: "opacity 0.3s ease-in-out",
+      }}
+    >
+      <div className='logsbox'>
+        <div>Wish to Logout?</div>
+        <div className='outicon'><AiOutlineLogout style={{color:"dodgerblue"}}/></div>
+        <div className='flexlog'>
+          <button id="logouthere" onClick={handleSignOut}>Yes</button>
+          <button id="dontlogout" onClick={closeLogoutPopup}>No</button>
+        </div>
+      </div>
+    </div>
     <div className='menubars'>
 
     <label htmlFor="checks" onClick={showmenu} className='barrs' ><FaBars/></label>
