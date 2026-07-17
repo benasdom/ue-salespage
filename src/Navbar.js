@@ -1,13 +1,19 @@
 import React from 'react';
 import { AiFillEnvironment,AiOutlineStar,AiOutlineShoppingCart,  AiOutlineLogout } from "react-icons/ai";
 import  {FaBars,  FaSignOutAlt} from'react-icons/fa';
-import { useState,useEffect,useRef } from 'react';
+import { useState,useEffect,useRef,useCallback } from 'react';
 
-// TODO: replace with your real OAuth Client ID from Google Cloud Console
-const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+// Google Cloud Console OAuth Client ID (Web application)
+const GOOGLE_CLIENT_ID = "49165624970-35najh58masjjonbbp944ha3vi2su79l.apps.googleusercontent.com";
 
 export const Navbar = () => {
   const googleBtnRef = useRef(null);
+
+  // Signed-in user (null when signed out). Populated from the decoded Google ID token.
+  const [user, setUser] = useState(null);
+  const [imgError, setImgError] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const [gsiScriptLoaded, setGsiScriptLoaded] = useState(false);
 
   const [cursorY, setcursorY] = useState("");
   const [alfa, setalfa] = useState("");
@@ -40,6 +46,95 @@ export const Navbar = () => {
 
     
   },[])
+
+  // Decode the JWT credential Google returns. Payload only — we never verify
+  // the signature client-side; that must happen server-side if you send this
+  // token to a backend for real authentication.
+  function decodeGoogleCredential(token){
+    try{
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g,'+').replace(/_/g,'/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + c.charCodeAt(0).toString(16).padStart(2,'0'))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    }catch(err){
+      console.error('Failed to decode Google credential', err);
+      return null;
+    }
+  }
+
+  const handleCredentialResponse = useCallback((response) => {
+    const payload = decodeGoogleCredential(response.credential);
+    if(!payload){
+      return;
+    }
+    setImgError(false);
+    setUser({
+      name: payload.name,
+      email: payload.email,
+      picture: payload.picture,
+    });
+    // If you need the backend to verify this user, send response.credential
+    // to your server here (e.g. fetch('/api/auth/google', { method:'POST', body: JSON.stringify({ credential: response.credential }) }))
+    // and verify it there with google-auth-library. Never trust the decoded
+    // payload above for anything security-sensitive on its own.
+  }, []);
+
+  // Load the Google Identity Services script once.
+  useEffect(() => {
+    const scriptId = 'google-identity-services';
+    if(document.getElementById(scriptId)){
+      setGsiScriptLoaded(true);
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = scriptId;
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => setGsiScriptLoaded(true);
+    script.onerror = () => console.error('Failed to load Google Identity Services script');
+    document.body.appendChild(script);
+  },[]);
+
+  // Initialize GIS and render the button whenever it's needed.
+  useEffect(() => {
+    if(!gsiScriptLoaded || !window.google || !window.google.accounts || !window.google.accounts.id){
+      return;
+    }
+    if(!GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID.startsWith('YOUR_GOOGLE_CLIENT_ID')){
+      console.warn('Set GOOGLE_CLIENT_ID in Navbar.js to your real OAuth Client ID before deploying.');
+      return;
+    }
+    window.google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+      auto_select: false,
+    });
+    if(!user && googleBtnRef.current){
+      googleBtnRef.current.innerHTML = '';
+      window.google.accounts.id.renderButton(googleBtnRef.current, {
+        theme: 'outline',
+        size: 'medium',
+        type: 'standard',
+      });
+    }
+  },[gsiScriptLoaded, user, handleCredentialResponse]);
+
+  const openLogoutPopup = () => setShowLogoutPopup(true);
+  const closeLogoutPopup = () => setShowLogoutPopup(false);
+
+  const handleSignOut = () => {
+    if(window.google && window.google.accounts && window.google.accounts.id){
+      window.google.accounts.id.disableAutoSelect();
+    }
+    setUser(null);
+    setShowLogoutPopup(false);
+  };
 
 
 
@@ -77,8 +172,10 @@ function rangeset(vals){
  }
 
   return <div>
-    <div id="popup"><div className='logsbox'><div>Wish to Logout?</div><div className='outicon'><AiOutlineLogout style={{color:"dodgerblue"}}/></div><div className='flexlog'><div id="logouthere">Yes</div>
-    <div id="dontlogout" >No</div></div></div></div>
+    {showLogoutPopup && (
+    <div id="popup" style={{display:"flex"}}><div className='logsbox'><div>Wish to Logout?</div><div className='outicon'><AiOutlineLogout style={{color:"dodgerblue"}}/></div><div className='flexlog'><div id="logouthere" onClick={handleSignOut}>Yes</div>
+    <div id="dontlogout" onClick={closeLogoutPopup}>No</div></div></div></div>
+    )}
     <div className='menubars'>
 
     <label htmlFor="checks" onClick={showmenu} className='barrs' ><FaBars/></label>
@@ -86,9 +183,16 @@ function rangeset(vals){
     </div>
     <div className='lilnav'>
     <div id="piccontent" >
-      <img alt="User profile" title="users-image"  id='picid'src='imgs/profile.png' loading='lazy'/>
+      <img
+        alt={user ? `${user.name}'s profile` : "User profile"}
+        title="users-image"
+        id='picid'
+        src={user && user.picture && !imgError ? user.picture : 'imgs/profile.png'}
+        loading='lazy'
+        onError={() => setImgError(true)}
+      />
     </div>
-    <div id="content"  title="user"  >User</div>
+    <div id="content"  title="user"  >{user ? user.name : "User"}</div>
       <div className='menu'>
             
       <div title='Explore' className='menus'>
@@ -101,8 +205,11 @@ function rangeset(vals){
  
     </div>
 
-    <div title="Google Sign-in" className="g-signin2 " data-onsuccess="onSignIn" data-theme="dark">awaiting....</div>
-    <button title="Google Sign-out" className=" menuss"id='menuss'><p id="outs">SignOut</p><FaSignOutAlt/></button>
+    {!user ? (
+    <div title="Google Sign-in" ref={googleBtnRef}></div>
+    ) : (
+    <button title="Google Sign-out" className=" menuss"id='menuss' onClick={openLogoutPopup}><p id="outs">SignOut</p><FaSignOutAlt/></button>
+    )}
   </div>
   <div className='wrap'>
    <div className='wrapped'>
